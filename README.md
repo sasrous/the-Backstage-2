@@ -163,7 +163,7 @@ comments - array (strings)
 
 ### Trello/Kanban
 
-[Link to your trello board](https://trello.com) or picture of your physical board
+https://trello.com/b/RnmDlMGE/the-backstage-2
 
 ### Git
 
