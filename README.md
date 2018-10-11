@@ -178,9 +178,9 @@ https://github.com/sasrous/the-Backstage-2
 
 ### Slides
 
-The url to your presentation slides
 
-[Slides Link](http://slides.com)
+
+https://slides.com/nuriasasrous/the-backstage
 
 
 
