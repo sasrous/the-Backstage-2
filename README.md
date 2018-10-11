@@ -42,50 +42,52 @@ Geo Location:
 - `/`
   - HomePageComponent
   - public
-  - just promotional copy
+
 - `/auth/signup`
   - SignupPageComponent
   - anon only
   - signup form, link to login
-  - navigate to homepage after signup
+  - navigate to Profile after signup
 - `/auth/login`
   - LoginPageComponent
   - anon only
   - login form, link to signup
-  - navigate to homepage after login
-- `/restaurants` 
-  - RestaurantListPageComponent
-  - public
-  - shows all restaurants, links to details
-  - search restaurants by name
-- `/restaurants/create` 
-  - RestaurantCreatePageComponent
+  - navigate to Lobby after login
+- `/lobby` 
+  - API songkick 
+  - searchbar / filter
+  - search events, links to details
   - user only
-  - creates a new restaurant
-  - navigates to restaurant's detail page after creation
-- `/restaurants/:id` 
-  - RestaurantDetailPageComponent 
-  - public
-  - details of one restaurant
-  - button to add to favorite
-  - show star if in favorites already
+  
+- `/lobby/:id` 
+  - event details
+  - user only
+  - join event (save in profile)
+  - unjoin event
+  - leave a comment on event
+  - check other users that joined  (acces details)
+  - check other users that commented (acces details) 
+
 - `/profile/me` 
   - ProfilePageComponent
   - user only
   - my details
-  - my favorite restaurants
-  - restaurants created by me
+  - my events
+  - my private messages 
+  - edit information
+- `/profile/:id`
+  - user only
+  - other user details 
+  - send DM
+  - block user
+  - unblock user
+
 - `**`
   - NotFoundPageComponent
 
 
 ## Components
 
-- Restaurant Card component
-  - Input: restaurant: any
-  - Output: favorite(restaurantId: string, on: boolean)
-- Search component
-  - Output: change(terms: string)
 
 
 ## Services
@@ -96,13 +98,8 @@ Geo Location:
   - auth.logout()
   - auth.me()
   - auth.getUser() // synchronous
-- Restaurant Service
-  - restaurant.list()
-  - restaurant.search(terms)
-  - restaurant.create(data)
-  - restaurant.detail(id)
-  - restaurant.addFavorite(id)
-  - restaurant.removeFavorite(id)   
+- Event Service
+
 
 # Server
 
@@ -114,16 +111,17 @@ User model
 username - String // required
 email - String // required & unique
 password - String // required
-favorites - [ObjectID<Restaurant>]
+saved - [ObjectID<Event>]
 ```
 
-Restaurant model
+saved Event model
 
 ```
-owner - ObjectID<User> // required
+id -  String // required
 name - String // required
-phone - String
-address - String
+address -  String // required
+users - array (id's) 
+comments - array (strings) 
 ```
 
 ## API Endpoints (backend routes)
@@ -157,35 +155,8 @@ address - String
 - POST /auth/logout
   - body: (empty)
   - 204
-- POST /user/me/favorite
-  - body:
-    - restaurantId
-  - validation
-    - id is valid (404)
-    - id exists (404)
-  - add to favorites if not there yet
-  - updates user in session
-- DELETE /user/me/favorite/:restaurantId
-  - validation
-    - id is valid (404)
-    - id exists (404)
-  - body: (empty - the user is already stored in the session)
-  - remove from favorites
-  - updates user in session
-- GET /restaurant?terms=foo
-  - use search criteria if terms provided
-  - 200 with array of restaurants
-- POST /restaurant
-  - body:
-    - name
-    - phone
-    - address
-  - validation
-    - fields not empty
-  - create restaurant
-  - 200 with restaurant object
-- GET /restaurant/:id
-
+  
+...
   
 
 ## Links
@@ -211,4 +182,4 @@ The url to your presentation slides
 
 
 
-Contraer 
+
