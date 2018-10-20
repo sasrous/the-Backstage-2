@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { withAuth } from '../components/AuthProvider';
 import MapGL from 'react-map-gl';
 // import Geocoder from 'react-map-gl-geocoder'
 import Geocoder from './Geocoder';
@@ -53,7 +51,7 @@ class Searchbar extends Component {
         {...this.state.viewport}
         onViewportChange={this._onViewportChange}
         mapboxApiAccessToken={MAPBOX_TOKEN}>
-        <Geocoder mapRef={this.mapRef} onViewportChange={this._onViewportChange} mapboxApiAccessToken={MAPBOX_TOKEN}></Geocoder>
+        <Geocoder mapRef={this.mapRef} onViewportChange={this._onViewportChange} mapboxApiAccessToken={MAPBOX_TOKEN} datafunc = {this.props.datafunc}></Geocoder>
       </MapGL>
       </div>
       </div>

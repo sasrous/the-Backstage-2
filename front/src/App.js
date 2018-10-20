@@ -14,7 +14,9 @@ import Lobby from './pages/Lobby'
 import './App.css';
 
 class App extends Component {
+
   render() {
+ 
     return (
       <AuthProvider>
         <Navbar />
@@ -25,7 +27,6 @@ class App extends Component {
           <PrivateRoute path="/private" component={Private} />
           <PrivateRoute path="/lobby" component = {Lobby} />
         </Switch>
-        
       </AuthProvider>
     )
   }

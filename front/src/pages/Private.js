@@ -18,7 +18,6 @@ class Private extends Component {
         <div>
           <h1>Welcome {user.username}</h1>
           <p>Upcoming events:</p>
-          {user.events}
         </div>
       )}
     

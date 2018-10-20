@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const auth = require('./routes/auth');
 
@@ -32,10 +33,16 @@ app.use((req, res, next) => {
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(session({
-  secret: 'react auth secret shh',
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  }),
+  secret: 'some-string',
   resave: true,
   saveUninitialized: true,
-  cookie: { httpOnly: true, maxAge: 60000 },
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000
+  }
 }));
 app.use(logger('dev'));
 app.use(bodyParser.json());

@@ -6,13 +6,13 @@ const AnonRoute = ({ component: Component, isLogged, setUser, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props => {
-        if (!isLogged) {
-          return <Component {...props} setUser={setUser} />
-        } else {
-          return <Redirect to={{ pathname: '/private', state: { from: props.location } }} />
+      render = { props => {
+          if (!isLogged) {
+            return <Component {...props} setUser={setUser} />
+          } else {
+            return <Redirect to={{ pathname: '/private', state: { from: props.location } }} />
+          }
         }
-      }
       }
     />
   )
