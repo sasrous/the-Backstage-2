@@ -8,13 +8,17 @@ class Navbar extends Component {
     const { username } = user;
     if (isLogged) {
       return <div>
-        <p>username: { username }</p>
-        <Link to = '/' onClick={logout}>Logout</Link>
+        <Link to='/'className="btn ">Home</Link>
+        <Link to='/private' className="btn "> Profile</Link>
+        <Link to='/lobby'className="btn "> Lobby</Link>
+        <Link to = '/'  className="btn-warning " onClick={logout}>Logout</Link>   
+        <p>Logged in as: { username }</p>
       </div>
     } else {
       return <div>
-        <Link to='/login'>Login</Link>
-        <Link to='/signup'>Signup</Link>
+        <Link to='/'className="btn ">Home</Link>
+        <Link to='/login'className="btn ">Login</Link>
+        <Link to='/signup'className="btn ">Signup</Link>
       </div>
     }
   
