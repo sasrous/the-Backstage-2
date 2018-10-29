@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import eventApi from  '../lib/event-service';
 import { Link } from 'react-router-dom';
-
+import EventDetails from '../components/EventDetails';
 export default class Detail extends Component {
   
   state = {
@@ -11,7 +11,7 @@ export default class Detail extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params; 
-    if (eventApi.getEvent(id)) {
+   if (eventApi.getEvent(id)) {
       eventApi.getEvent(id)
         .then(({data}) => {
           this.setState({
@@ -37,13 +37,11 @@ export default class Detail extends Component {
   }
 
   renderInfo = () => {
-    const { id } = this.state.phone;
+    const  id  = this.state.data.value;
+    console.log(this.state.data.value)
     return (
       <Fragment>
-       
-        <p>{id}</p>
-    
-      
+        <EventDetails id = {id}> </EventDetails>
         <Link to="/lobby">Back to the Lobby</Link>
       </Fragment>
     );

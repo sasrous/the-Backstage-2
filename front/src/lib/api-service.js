@@ -14,6 +14,10 @@ class Api {
   getListEvents(metroArea) {
     return this.api.get(`metro_areas/${metroArea}/calendar.json?apikey=PxrJ1AnxJlC6uT7i&metro_area_id=${metroArea}`)
   }
+
+  getEventDetails(event_id) {
+    return this.api.get(`events/${event_id}.json?apikey=PxrJ1AnxJlC6uT7i`)
+  }
   
 }
 

@@ -33,6 +33,7 @@ class Auth {
     return this.auth.get('/auth/me')
     .then(response => response.data)
   }
+  
 }
 
 const auth = new Auth();

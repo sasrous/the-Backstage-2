@@ -7,17 +7,16 @@ class EventApi {
     })
   }
 
-
   getEvent(id) {
-    return this.eventApi.get(`/eventApi/:${id}`);
+    return this.eventApi.get(`/eventApi/${id}`);
   }
 
   createEvent(id) {
-    return this.eventApi.post(`/eventApi/:${id}`);
+    return this.eventApi.post(`/eventApi/${id}`);
   }
 
   editEvent(id, body) {
-    return this.eventApi.put(`/eventApi/:${id}`, body);
+    return this.eventApi.put(`/eventApi/${id}`, body);
   }
 }
 
