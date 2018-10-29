@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 
 const User = require('../models/user');
+const Event = require('../models/event')
 const { isLoggedIn } = require('../helpers/is-logged');
 
 router.get('/me', (req, res, next) => {
@@ -99,8 +100,35 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/private', isLoggedIn(), (req, res, next) => {
+  
   res.status(200).json({
     message: 'This is a private message'
+  });
+});
+
+router.put('/edit', isLoggedIn(), (req, res, next) => {
+
+  var newUserData = req.body
+  const id = req.session.currentUser._id
+  var dataToUpdate = {
+      id: id, 
+      username: req.session.currentUser.username,
+      password: req.session.currentUser.password,
+      about: newUserData.about ,
+      age: newUserData.age,
+      name: newUserData.name,
+    }
+
+  req.session.currentUser =  dataToUpdate
+
+  
+  User. findByIdAndUpdate(id , dataToUpdate, function(err){
+    if(err) {
+      res.json(err)
+    } else {
+      console.log("updated")
+      res.json({message: "updated"})
+    }
   });
 });
 
