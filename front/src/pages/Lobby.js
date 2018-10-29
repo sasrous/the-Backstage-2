@@ -6,13 +6,18 @@ import ApiList from '../components/ApiList';
 class Lobby extends Component {
 
   state = {
-    datafunc : (data) => {
-      this.setState({
-        data : data
-      })
-    },
-    data : []
+      datafunc : (data) => {
+        this.setState({
+          data : data
+        })
+      },
+      data : [],
+      routeChange : (Id) => {
+        let path = `/lobby/${Id}`;
+        this.props.history.push(path);
+      },
   }
+  
 
   render() {   
 
@@ -24,7 +29,7 @@ class Lobby extends Component {
           <h4 > search for upcoming events :</h4>
         </div>
         <Searchbar datafunc = {this.state.datafunc}/>  
-        <ApiList data = {this.state.data}/>
+        <ApiList data = {this.state.data} routeChange= {this.state.routeChange}/>
         </div>
       </div>
     )

@@ -39,7 +39,7 @@ export default class AuthProvider extends Component {
       user,
     })
   }
-
+  
   logoutUser = () =>{
     auth.logout()
       .then(() => {

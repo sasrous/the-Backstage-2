@@ -9,8 +9,8 @@ import Login from './pages/Login';
 import Homepage from './pages/Homepage';
 import AuthProvider from './components/AuthProvider';
 import Lobby from './pages/Lobby'
-
-
+import Profileform from './pages/Profileform'
+import Detail from './pages/Detail'
 import './App.css';
 
 class App extends Component {
@@ -24,8 +24,10 @@ class App extends Component {
           <Route exact path="/" component={Homepage}></Route> 
           <AnonRoute path="/signup" component={Signup} />
           <AnonRoute path="/login" component={Login} />
+          <PrivateRoute path="/edit" component={Profileform} />
           <PrivateRoute path="/private" component={Private} />
-          <PrivateRoute path="/lobby" component = {Lobby} />
+          <PrivateRoute exact path="/lobby" component = {Lobby} />
+          <PrivateRoute exact path='/lobby/:id' component={Detail} />
         </Switch>
       </AuthProvider>
     )

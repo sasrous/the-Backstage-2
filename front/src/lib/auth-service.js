@@ -24,6 +24,10 @@ class Auth {
     return this.auth.post('/auth/logout', {})
       .then(response => response.data)
   }
+  edit(body) {
+    return this.auth.put('/auth/edit', body)
+    .then(response => response.data)
+  }
 
   me(user) {
     return this.auth.get('/auth/me')
