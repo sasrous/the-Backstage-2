@@ -7,8 +7,9 @@ const Event = require('../models/event')
 
 
 
-router.post('/eventApi/:id',  function(req, res, next) {
+router.post('/:id',  function(req, res, next) {
   var id = req.params.id
+  console.log(id)
   var newEvent = new Event( {
     eventId: id,
     joined: false,
@@ -28,8 +29,10 @@ router.post('/eventApi/:id',  function(req, res, next) {
   })
 })
 
-router.get('/eventApi/:id', function(req, res, next) {
+
+router.get('/:id', function(req, res, next) {
   var id = req.params.id
+  console.log(id)
   Event.findById( id, function(err, phone){
     if(err){
       res.json(err)
@@ -39,8 +42,9 @@ router.get('/eventApi/:id', function(req, res, next) {
   })
 })
 
-router.put('/eventApi/:id', function(req, res, next) {
+router.put('/:id', function(req, res, next) {
   var id = req.params.id;
+  console.log(id)
   var eventToUpdate = {
     eventId: id,
     joined: req.body.joined || false,

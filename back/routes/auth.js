@@ -17,6 +17,7 @@ router.get('/me', (req, res, next) => {
   }
 });
 
+
 router.post('/login', (req, res, next) => {
   if (req.session.currentUser) {
     return res.status(401).json({
@@ -131,5 +132,6 @@ router.put('/edit', isLoggedIn(), (req, res, next) => {
     }
   });
 });
+
 
 module.exports = router;
