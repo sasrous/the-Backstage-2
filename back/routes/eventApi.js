@@ -9,7 +9,6 @@ const Event = require('../models/event')
 
 router.post('/:id',  function(req, res, next) {
   var id = req.params.id
-  console.log(id)
   var newEvent = new Event( {
     eventId: id,
     comments: [],
@@ -31,7 +30,6 @@ router.post('/:id',  function(req, res, next) {
 
 router.get('/:id', function(req, res, next) {
   var id = req.params.id
-  console.log(id)
   Event.find({eventId: id }, function(err, event){
     if(err){
       res.status(500).json(err)
@@ -45,7 +43,6 @@ router.get('/:id', function(req, res, next) {
 
 router.put('/:id', function(req, res, next) {
   var id = req.params.id;
-  console.log(id)
   var eventToUpdate = {
     eventId: id,
     comments: this.comments.push(req.body.comments) || this.comments,

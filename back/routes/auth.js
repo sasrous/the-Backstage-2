@@ -113,7 +113,6 @@ router.get('/private', isLoggedIn(), (req, res, next) => {
 });
 
 router.put('/edit', isLoggedIn(), (req, res, next) => {
-
   var newUserData = req.body
   const id = req.session.currentUser._id
   var dataToUpdate = {
@@ -170,20 +169,18 @@ router.put('/join', isLoggedIn(), (req, res, next) => {
 router.put('/check', isLoggedIn(), (req, res, next) => {
 
   var newEventId = req.body.id
-  console.log(newEventId, "eventID")
+
   const id = req.session.currentUser._id
 
   User.findById(id).then((data)=> {
     for (i=0; i < data.eventsJoined.length ; i++){
 
       if(data.eventsJoined[i] === newEventId){
-        console.log("found", data.eventsJoined[i])
         res.status(200).json(data.eventsJoined[i])
         
       }
       else if (i === data.eventsJoined.length -1 ) {
-        console.log(data.eventsJoined[i], newEventId, "comparing not found")
-        console.log("not found")
+
         res.status(500).json(err)
       }
     }
@@ -195,8 +192,9 @@ router.put('/delete', isLoggedIn(), (req, res, next) => {
   var EventId = req.body.id
   const arr = req.session.currentUser.eventsJoined
   var index = arr.indexOf(EventId);
+
   if (index > -1) {
-    array.splice(index, 1);
+    arr.splice(index, 1);
   }
   var dataToUpdate = {
     _id: id, 
@@ -213,7 +211,7 @@ router.put('/delete', isLoggedIn(), (req, res, next) => {
     if(err) {
       res.json(err)
     } else {
-      console.log("updated")
+
       res.json({message: "updated"})
     }
   });
