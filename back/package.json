@@ -16,7 +16,8 @@
     "serve-favicon": "~2.4.5"
   },
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "start-dev": "./node_modules/nodemon/bin/nodemon.js ./bin/www"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -26,5 +27,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "nodemon": "^1.18.5"
+  }
 }
