@@ -12,23 +12,30 @@ class JoinButton extends Component {
       })
     },
     checkEvent : (event) => {
-      console.log("checking")
+    
       auth.check(event)
       .then((data) => {
-        console.log(data, "data")
+      
         if(data.length === 0){    
           this.setState({
             joined : false
-        })
-      console.log("already joined", data)        
-      }
-      else {
+          })
+        }
+        else {
         this.setState({
           joined : true
+          })
+        }
+      })
+    },
+    unfollowEvent : (event) => {
+      auth.delete(event)
+      .then((data) => {
+        console.log(data, "data")
+        this.setState({
+          joined : false
         })
-      }
-    })
-
+      })
     }
   }
   componentDidMount = () => {
@@ -40,7 +47,7 @@ class JoinButton extends Component {
   render() {
     if (this.state.joined ) {
       return(
-        <button>Unfollow</button>
+        <button onClick={() => {this.state.unfollowEvent({id: this.state.id})}}>Unfollow</button>
       )
     }
     else {

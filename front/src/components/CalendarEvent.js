@@ -34,15 +34,16 @@ class CalendarEvent extends Component {
     return(
      
       <div className="list-group">
-      <a href={'/lobby/'+ id} className="list-group-item list-group-item-action flex-column align-items-start">
+      <div  className="list-group-item list-group-item-action flex-column align-items-start">
         <big className="text-muted">{this.state.date}</big>
         <div className="d-flex w-100 justify-content-between">
         <h4 className="mb-1">{this.state.displayName} {id} </h4> 
         <JoinButton id = {this.state.id}> JOIN</JoinButton>
         </div>
+        <a href={'/lobby/'+ id}> DETAILS</a>
         <h5 className="mb-1"> {this.state.location}</h5>
         <small className="text-muted">{this.state.venue}</small> 
-      </a>
+      </div>
     </div>
 
     )

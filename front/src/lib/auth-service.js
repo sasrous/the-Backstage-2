@@ -41,8 +41,8 @@ class Auth {
     return this.auth.put('/auth/join', body)
     .then(response => response.data)
   }
-  delete(event) {
-    return this.auth.put('/auth/delete', event)
+  delete(body) {
+    return this.auth.put('/auth/delete', body)
     .then(response => response.data)
   }
 }

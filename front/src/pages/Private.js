@@ -22,8 +22,8 @@ class Private extends Component {
       return (
         <div>
           <h1>Welcome {user.username}</h1>
-          <h3>Name: {user.about}</h3>
-          <h3>Age: {user.about}</h3>
+          <h3>Name: {user.name}</h3>
+          <h3>Age: {user.age}</h3>
           <h3>About: {user.about}</h3>
           <Link to='/edit' className="btn ">EDIT INFO</Link>
           <p>Upcoming events:</p>

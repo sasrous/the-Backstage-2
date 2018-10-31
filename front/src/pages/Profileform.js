@@ -26,6 +26,7 @@ class Profileform extends Component {
       about: about || user.about,
       age: age || user.age,
       name: name || user.name,
+      eventsJoined: user.eventsJoined,
     }
     auth.edit(newUser).then(() => {
       this.props.setUser(newUser)
