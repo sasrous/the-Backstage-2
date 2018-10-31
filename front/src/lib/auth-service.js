@@ -33,7 +33,18 @@ class Auth {
     return this.auth.get('/auth/me')
     .then(response => response.data)
   }
-  
+  check(body) {
+    return this.auth.put('/auth/check', body)
+    .then(response => response.data)
+  }
+  join(body) {
+    return this.auth.put('/auth/join', body)
+    .then(response => response.data)
+  }
+  delete(event) {
+    return this.auth.put('/auth/delete', event)
+    .then(response => response.data)
+  }
 }
 
 const auth = new Auth();

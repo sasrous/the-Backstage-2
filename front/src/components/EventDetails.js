@@ -1,33 +1,47 @@
 import React, { Component } from 'react';
 import api from '../lib/api-service'
+import JoinButton from './JoinButton';
 
 class EventDetails extends Component {
-  render() {
-    let displayData = (data) => {
-      
-      console.log(data)
-    }
+  componentDidMount = () => {
+ 
     const id =  this.props.id
     api.getEventDetails(id).then((result)=>{
-      const data = result.data.resultsPage.results.event;
-      console.log(data)
-      const name = data.displayName
-      const city = data.location.city
-      console.log(name, city)
-      displayData(data)
+      
+     const data = result.data.resultsPage.results.event;
+     this.setState({
+      data: data,
 
     })
+     console.log(data)
+
+   })
+   
+  }
+  
+  render() {
+    
+   
+   
+    
     if(this.state){
+      let {displayName, uri, location, start, venue}  = this.state.data
+
     return(
       <div>
-        <p>{id}</p>
-        <p>{this.state.city}</p>
+        
+        <h1>{displayName}</h1>
+        <h2>{start.date}</h2>
+        <h5>Venue : {venue.displayName}</h5>
+        <h5>City: {location.city}</h5>
+        <a href={uri} > More Info </a>
+        <JoinButton id = {this.props.id}>JOIN</JoinButton>
      </div>
     )}
     else {
       return(
         <div>
-          <p>{id}</p>
+          <p>{this.props.id} LOADING </p>
        </div>
       )}
    

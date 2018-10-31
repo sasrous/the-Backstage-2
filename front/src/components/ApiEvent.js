@@ -10,6 +10,7 @@ class ApiList extends Component {
     const id = this.props.info[0].id
 
     return(
+     
       <div className="list-group">
       <a href={'/lobby/'+ id} className="list-group-item list-group-item-action flex-column align-items-start">
         <big className="text-muted">{date}</big>

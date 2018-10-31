@@ -2,43 +2,41 @@ import React, { Component, Fragment } from 'react'
 import eventApi from  '../lib/event-service';
 import { Link } from 'react-router-dom';
 import EventDetails from '../components/EventDetails';
+
+
 export default class Detail extends Component {
   
   state = {
-    data: {},
+    id: {},
     isLoading: true,
   }
 
   componentDidMount() {
     const { id } = this.props.match.params; 
-   if (eventApi.getEvent(id)) {
-      eventApi.getEvent(id)
-        .then(({data}) => {
-          this.setState({
-            data: data,
-            isLoading: false,
-          })
+    eventApi.getEvent(id)
+    .then(({data}) => {
+      if(data.length === 0){
+        eventApi.createEvent(id).catch((error) => {console.log(error)})
+        this.setState({
+          id: id,
+          isLoading: false,
+        })
+      console.log("work")        
+      }
+      else {
+
+        this.setState({
+          id: id,
+          isLoading: false,
         })
       }
-    
-    else {
-      eventApi.createEvent(id)
-      .then(() => {
-        eventApi.getEvent(id)
-        .then(({data}) => {
-          this.setState({
-            data: data,
-            isLoading: false,
-          })
-        })
-      })
-      .catch((error) => {console.log(error)})
-    }
+    })
   }
+  
 
   renderInfo = () => {
-    const  id  = this.state.data.value;
-    console.log(this.state.data.value)
+    const  id  = this.state.id;
+  
     return (
       <Fragment>
         <EventDetails id = {id}> </EventDetails>

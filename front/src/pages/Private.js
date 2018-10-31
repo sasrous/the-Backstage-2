@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { withAuth } from '../components/AuthProvider';
 import { Link } from 'react-router-dom';
+import Calendar from '../components/Calendar';
 class Private extends Component {
   render() {
     const { user } = this.props
-    console.log(this.props)
-    if (! this.props.events ){
+    console.log(this.props.user.eventsJoined)
+    if (! this.props.user.eventsJoined ){
       return (
         <div>
           <h1>Welcome {user.username}</h1>
@@ -26,6 +27,7 @@ class Private extends Component {
           <h3>About: {user.about}</h3>
           <Link to='/edit' className="btn ">EDIT INFO</Link>
           <p>Upcoming events:</p>
+          <Calendar data = {user.eventsJoined}></Calendar>
         </div>
       )}
     
