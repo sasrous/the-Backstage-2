@@ -85,6 +85,11 @@ router.post('/signup', (req, res, next) => {
       const newUser = User({
         username,
         password: hashPass,
+        about: 'empty',
+        age: 'empty',
+        name: 'empty',
+        eventsJoined : [],
+
       });
 
       return newUser.save().then(() => {
@@ -118,6 +123,7 @@ router.put('/edit', isLoggedIn(), (req, res, next) => {
       about: newUserData.about ,
       age: newUserData.age,
       name: newUserData.name,
+      eventsJoined : req.session.currentUser.eventsJoined,
     }
 
   req.session.currentUser =  dataToUpdate
@@ -127,11 +133,63 @@ router.put('/edit', isLoggedIn(), (req, res, next) => {
     if(err) {
       res.json(err)
     } else {
-      console.log("updated")
       res.json({message: "updated"})
     }
   });
 });
+router.put('/join', isLoggedIn(), (req, res, next) => {
 
+  var newEventId = req.body.id
+  const id = req.session.currentUser.id
+  let eventArray = [];
 
+  User.findOne(id).then((data)=> {
+    eventArray = data.eventsJoined
+    console.log(eventArray, "old data from mongo")
+  }).then(() => {
+    eventArray.push(newEventId)
+    console.log(eventArray, "new data to update")
+    const dataToUpdate = {
+      eventsJoined : eventArray,
+    }
+    req.session.currentUser =  dataToUpdate
+    User.findOneAndUpdate(id, dataToUpdate, function(err){
+      if(err) {
+        res.json(err)
+      } else {
+        res.json({message: "updated"})
+      }
+    });
+  })
+});
+
+router.put('/delete', isLoggedIn(), (req, res, next) => {
+  const id = req.session.currentUser._id
+  var EventId = req.body
+  const arr = req.session.currentUser.eventsJoined
+  var index = arr.indexOf(EventId);
+  if (index > -1) {
+    array.splice(index, 1);
+  }
+  var dataToUpdate = {
+    id: id, 
+    username: req.session.currentUser.username,
+    password: req.session.currentUser.password,
+    about: req.session.currentUser.about ,
+    age: req.session.currentUser.age,
+    name: req.session.currentUser.name,
+    eventsJoined : arr,
+  }
+  req.session.currentUser =  dataToUpdate
+
+  User. findByIdAndUpdate(id , dataToUpdate, function(err){
+    if(err) {
+      res.json(err)
+    } else {
+      console.log("updated")
+      res.json({message: "updated"})
+    }
+  });
+
+})
 module.exports = router;

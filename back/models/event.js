@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const EventSchema = new Schema({
   eventId: String,
-  joined: Boolean,
   comments: Array,
   usersJoined: Array,
 }, {
