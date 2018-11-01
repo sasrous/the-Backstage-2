@@ -13,10 +13,7 @@ class EventDetails extends Component {
       data: data,
 
     })
-     console.log(data)
-
    })
-   
   }
   
   render() {

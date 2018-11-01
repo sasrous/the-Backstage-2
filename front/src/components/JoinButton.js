@@ -3,13 +3,14 @@ import auth from '../lib/auth-service';
 
 class JoinButton extends Component {
   state = {
-    joined : false,
+  
     id : this.props.id.toString(),
     joinEvent : (event) => {
       auth.join(event)
       this.setState({ 
         joined : true
       })
+     
     },
     checkEvent : (event) => {
     
@@ -31,16 +32,14 @@ class JoinButton extends Component {
     unfollowEvent : (event) => {
       auth.delete(event)
       .then((data) => {
-        console.log(data, "data")
         this.setState({
           joined : false
         })
+       
       })
     }
   }
   componentDidMount = () => {
-    let ID = this.state.id
-    console.log(ID, "correct" )
     this.state.checkEvent({id: this.state.id})    
   }
     

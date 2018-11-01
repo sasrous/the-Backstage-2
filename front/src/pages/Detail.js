@@ -2,13 +2,15 @@ import React, { Component, Fragment } from 'react'
 import eventApi from  '../lib/event-service';
 import { Link } from 'react-router-dom';
 import EventDetails from '../components/EventDetails';
+import { withAuth } from '../components/AuthProvider';
+import CommentSection from '../components/CommentSection';
 
-
-export default class Detail extends Component {
+class Detail extends Component {
   
   state = {
     id: {},
     isLoading: true,
+    user : this.props.user
   }
 
   componentDidMount() {
@@ -20,8 +22,7 @@ export default class Detail extends Component {
         this.setState({
           id: id,
           isLoading: false,
-        })
-      console.log("work")        
+        })     
       }
       else {
 
@@ -41,6 +42,7 @@ export default class Detail extends Component {
       <Fragment>
         <EventDetails id = {id}> </EventDetails>
         <Link to="/lobby">Back to the Lobby</Link>
+        <CommentSection user = {this.state.user} event = {id}></CommentSection>
       </Fragment>
     );
   }
@@ -54,3 +56,4 @@ export default class Detail extends Component {
     )
   }
 }
+export default withAuth()(Detail);

@@ -3,10 +3,16 @@ import { withAuth } from '../components/AuthProvider';
 import { Link } from 'react-router-dom';
 import Calendar from '../components/Calendar';
 class Private extends Component {
+  state = {
+    joined : true,
+    user : this.props.user
+  }
+ 
   render() {
-    const { user } = this.props
-    console.log(this.props.user.eventsJoined)
-    if (! this.props.user.eventsJoined ){
+    
+    const  user  = this.state.user
+
+    if (! this.state.user.eventsJoined ){
       return (
         <div>
           <h1>Welcome {user.username}</h1>
@@ -21,13 +27,16 @@ class Private extends Component {
     } else {
       return (
         <div>
+          <div className="profileImage">
+            <img alt = "profile" src="http://profilepicturesdp.com/wp-content/uploads/2018/06/blank-user-profile-picture-1.gif" />
+          </div>
           <h1>Welcome {user.username}</h1>
           <h3>Name: {user.name}</h3>
           <h3>Age: {user.age}</h3>
           <h3>About: {user.about}</h3>
           <Link to='/edit' className="btn ">EDIT INFO</Link>
-          <p>Upcoming events:</p>
-          <Calendar data = {user.eventsJoined}></Calendar>
+          <h3>Your Calendar:</h3>
+          <Calendar data = {user.eventsJoined} ></Calendar>
         </div>
       )}
     

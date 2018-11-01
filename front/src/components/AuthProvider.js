@@ -70,6 +70,7 @@ export default class AuthProvider extends Component {
   }
 
   render() {
+    
     const { isLogged, user, status } = this.state;
     const { children } = this.props;
     switch (status) {

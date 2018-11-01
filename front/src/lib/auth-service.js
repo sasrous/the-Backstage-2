@@ -30,7 +30,7 @@ class Auth {
   }
 
   me(user) {
-    return this.auth.get('/auth/me')
+    return this.auth.get('/auth/me', user)
     .then(response => response.data)
   }
   check(body) {

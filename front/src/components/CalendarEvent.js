@@ -15,7 +15,6 @@ class CalendarEvent extends Component {
     const id = this.props.info
     api.getEventDetails(id)
     .then(({data}) => {
-        console.log(data.resultsPage.results.event, "data")
         let eventData = data.resultsPage.results.event
         this.setState({
           id: eventData.id,
@@ -30,7 +29,6 @@ class CalendarEvent extends Component {
   render() {
 
     const id = this.props.info
-    console.log(this.props)
     return(
      
       <div className="list-group">
@@ -38,7 +36,7 @@ class CalendarEvent extends Component {
         <big className="text-muted">{this.state.date}</big>
         <div className="d-flex w-100 justify-content-between">
         <h4 className="mb-1">{this.state.displayName} {id} </h4> 
-        <JoinButton id = {this.state.id}> JOIN</JoinButton>
+        <JoinButton id = {this.state.id} > JOIN</JoinButton>
         </div>
         <a href={'/lobby/'+ id}> DETAILS</a>
         <h5 className="mb-1"> {this.state.location}</h5>
