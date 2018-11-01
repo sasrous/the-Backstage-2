@@ -33,21 +33,41 @@ router.get('/:id', function(req, res, next) {
   Event.find({eventId: id }, function(err, event){
     if(err){
       res.status(500).json(err)
-      console.log("not found")
     } else {
-      console.log("event", event)
       res.status(200).json(event)
     }
   })
 })
 
 router.put('/:id', function(req, res, next) {
-  var id = req.params.id;
-  var eventToUpdate = {
-    eventId: id,
-    comments: this.comments.push(req.body.comments) || this.comments,
-    usersJoined: this.usersJoined.push(req.body.usersJoined) || this.usersJoined,
-    }
-  });
+  const data = req.body;
+  const eventID = data.event;
+  const {comment, timestamo} = data;
+  const user = data.user
+
+  Event.find({eventId: eventID }, function(err, event){
+    
+    }).then((event)=> {
+      const commentsArr = event[0].comments;
+      const usersJoined = event[0].usersJoined;
+      commentsArr.push(data);
+      var eventToUpdate = {
+        eventId: eventID,
+        comments: commentsArr,
+        usersJoined: usersJoined,
+        }
+      Event.findOneAndUpdate({eventId: eventID }, eventToUpdate, function(err, event){
+        if(err) {
+          res.json(err)
+        } else {
+          res.json({message: "updated"})
+        }
+      })
+    })
+
+  })
+
+ 
+  
 
 module.exports = router;

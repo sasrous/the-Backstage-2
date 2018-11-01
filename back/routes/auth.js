@@ -205,8 +205,8 @@ router.put('/delete', isLoggedIn(), (req, res, next) => {
     name: req.session.currentUser.name,
     eventsJoined : arr,
   }
-  req.session.currentUser =  dataToUpdate
 
+  req.session.currentUser = dataToUpdate
   User. findByIdAndUpdate(id , dataToUpdate, function(err){
     if(err) {
       res.json(err)
