@@ -25,24 +25,24 @@ class Detail extends Component {
         })     
       }
       else {
-
         this.setState({
           id: id,
           isLoading: false,
         })
       }
     })
+    .catch(() => {
+
+    })
   }
-  
 
   renderInfo = () => {
-    const  id  = this.state.id;
-  
+    const {id} = this.state;
     return (
       <Fragment>
-        <EventDetails id = {id}> </EventDetails>
+        <EventDetails id={id} />
         <Link to="/lobby">Back to the Lobby</Link>
-        <CommentSection user = {this.state.user} event = {id}></CommentSection>
+        <CommentSection user={this.state.user} event={id} />
       </Fragment>
     );
   }

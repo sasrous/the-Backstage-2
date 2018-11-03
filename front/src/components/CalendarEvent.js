@@ -1,51 +1,64 @@
 import React, { Component } from 'react';
 import api from '../lib/api-service';
 import JoinButton from './JoinButton';
+import MicrolinkCard from 'react-microlink';
 
 class CalendarEvent extends Component {
-  state = {
-    id : this.props.info,
-    displayName : "loading",
-    date  : "loading",
-    venue : "loading",
-    location : "loading",
-    data : []
-  }
-  componentDidMount() {
-    const id = this.props.info
-    api.getEventDetails(id)
-    .then(({data}) => {
-        let eventData = data.resultsPage.results.event
-        this.setState({
-          id: eventData.id,
-          displayName: eventData.displayName,
-          date: eventData.start.date,
-          venue: eventData.venue.displayName,
-          location: eventData.location.city,
-          data: data,
-        })
-      })
-  }
-  render() {
+	state = {
+		id: this.props.info,
+		displayName: 'loading',
+		date: 'loading',
+		venue: 'loading',
+		location: 'loading',
+		uri: '',
+		data: []
+	};
+	componentDidMount() {
+		const id = this.props.info;
 
-    const id = this.props.info
-    return(
-     
-      <div className="list-group">
-      <div  className="list-group-item list-group-item-action flex-column align-items-start">
-        <big className="text-muted">{this.state.date}</big>
-        <div className="d-flex w-100 justify-content-between">
-        <h4 className="mb-1">{this.state.displayName} {id} </h4> 
-        <JoinButton id = {this.state.id} > JOIN</JoinButton>
-        </div>
-        <a href={'/lobby/'+ id}> DETAILS</a>
-        <h5 className="mb-1"> {this.state.location}</h5>
-        <small className="text-muted">{this.state.venue}</small> 
-      </div>
-    </div>
+		api.getEventDetails(id).then(({ data }) => {
+			let eventData = data.resultsPage.results.event;
+			console.log(eventData.uri);
+			this.setState({
+				id: eventData.id,
+				displayName: eventData.displayName,
+				date: eventData.start.date,
+				venue: eventData.venue.displayName,
+				location: eventData.location.city,
+				data: data,
+				uri: eventData.uri
+			});
+		});
+	}
+	render() {
+		const id = this.props.info;
+		{
+			if (this.state.uri) {
+				return (
+					<div type="text/x-template" id="blog-card">
+						<a className="card-link">
+							<article class="blog-card">
+								<MicrolinkCard url={`${this.state.uri}`} href={'/lobby/' + id} size="large" />
 
-    )
-   
-  }
+								<div className="article-details">
+									<h4 className="post-category">{this.state.date}</h4>
+									<a href={'/lobby/' + id}>
+										{' '}
+										<h2 className="post-title">{this.state.displayName}</h2>
+									</a>
+
+									<p className="post-description">{this.state.venue}</p>
+									<JoinButton id={this.state.id}> JOIN</JoinButton>
+									<p className="post-author"> {this.state.location}</p>
+								</div>
+							</article>
+						</a>
+					</div>
+				);
+			} else {
+				return <p>loading</p>;
+			}
+		}
+	}
 }
-export default CalendarEvent
+export default CalendarEvent;

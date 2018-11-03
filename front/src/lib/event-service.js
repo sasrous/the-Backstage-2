@@ -1,23 +1,24 @@
 import axios from 'axios';
 
 class EventApi {
-  constructor() {
-    this.eventApi = axios.create({
-      baseURL: 'http://localhost:5000',
-    })
-  }
+	constructor() {
+		this.eventApi = axios.create({
+			baseURL: 'http://localhost:5000',
+			withCredentials: true
+		});
+	}
 
-  getEvent(id) {
-    return this.eventApi.get(`/eventApi/${id}`);
-  }
+	getEvent(id) {
+		return this.eventApi.get(`/eventApi/${id}`);
+	}
 
-  createEvent(id) {
-    return this.eventApi.post(`/eventApi/${id}`);
-  }
+	createEvent(id) {
+		return this.eventApi.post(`/eventApi/${id}`);
+	}
 
-  editEvent(id, body) {
-    return this.eventApi.put(`/eventApi/${id}`, body);
-  }
+	editEvent(id, body) {
+		return this.eventApi.put(`/eventApi/${id}`, body);
+	}
 }
 
 const eventApi = new EventApi();

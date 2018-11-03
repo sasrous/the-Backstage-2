@@ -1,0 +1,28 @@
+{
+  "env": {
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "extends": [
+    "airbnb-base",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "max-len": "off",
+    "object-curly-newline": ["error", {
+      "ObjectExpression": { "multiline": true },
+      "ObjectPattern": { "multiline": true }
+    }],
+    "react/prop-types": [ 2, { "ignore": ["children"]}]
+  }
+}

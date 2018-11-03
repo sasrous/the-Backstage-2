@@ -1,78 +1,70 @@
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
-import { Component } from 'react'
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
-import api from '../lib/api-service'
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import { Component } from 'react';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import api from '../lib/api-service';
 
-const MAPBOX_TOKEN = 'pk.eyJ1Ijoic2Fzcm91cyIsImEiOiJjamthMWVlYjMwaGR5M3F0NHZpMGhrOGM2In0.AnhPlCGlJIovaEzHuWr59Q'
+const MAPBOX_TOKEN = 'pk.eyJ1Ijoic2Fzcm91cyIsImEiOiJjamthMWVlYjMwaGR5M3F0NHZpMGhrOGM2In0.AnhPlCGlJIovaEzHuWr59Q';
 
 class Geocoder extends Component {
+	state = {
+		events: {},
+		isLoading: true
+	};
 
-  state = {
-    events: {},
-    isLoading: true,
-  }
+	componentDidUpdate() {
+		if (this.geocoder !== undefined) {
+			return;
+		}
 
-  componentDidUpdate() {
-    if (this.geocoder !== undefined) {
-      return
-    }
+		let getMetroarea = (location) => {
+			api
+				.getMetroArea(location)
+				.then((result) => {
+					let metroID = result.data.resultsPage.results.location[0].metroArea.id;
+					this.getListEvent(metroID);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		};
 
-    let   getMetroarea = (location) => {
-    
-      api.getMetroArea(location)
-      .then((result) => {
-        let metroID = result.data.resultsPage.results.location[0].metroArea.id
-        this.getListEvent(metroID);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-    }
+		const { mapRef, mapboxApiAccessToken, options } = this.props;
+		this.geocoder = new MapboxGeocoder({ accessToken: mapboxApiAccessToken, ...options });
+		this.geocoder.on('result', function(ev) {
+			var search = ev.result.text;
+			getMetroarea(search);
+		});
 
+		mapRef.current.getMap().addControl(this.geocoder);
+	}
 
+	getListEvent = (metroID) => {
+		api
+			.getListEvents(metroID)
+			.then(({ data }) => {
+				const eventArray = data.resultsPage.results.event;
 
-    const { mapRef, mapboxApiAccessToken, options } = this.props
-    this.geocoder = new MapboxGeocoder({ accessToken: mapboxApiAccessToken, ...options })
-    this.geocoder.on('result', function(ev) {
+				this.setState({
+					events: eventArray
+				});
+				this.props.datafunc(this.state.events);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 
-      var search = ev.result.text
-      getMetroarea(search)
-      
-       
-    })
-    
+	getGeocoder() {
+		return this.geocoder;
+	}
 
-    mapRef.current.getMap().addControl(this.geocoder)
-  }
+	render() {
+		return null;
+	}
 
-  getListEvent = (metroID) => {
-    api.getListEvents(metroID)
-      .then(({data}) => {
-        const eventArray = data.resultsPage.results.event
- 
-        this.setState({
-          events : eventArray,
-        });
-        this.props.datafunc(this.state.events)
-        
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  }
-
-  getGeocoder() {
-    return this.geocoder
-  }
-
-  render() {
-    return null
-  }
-
-
-  static defaultProps = {
-    mapboxApiAccessToken: MAPBOX_TOKEN
-  }
+	static defaultProps = {
+		mapboxApiAccessToken: MAPBOX_TOKEN
+	};
 }
 
-export default Geocoder
+export default Geocoder;
