@@ -46,7 +46,7 @@ class InputComment extends Component {
 				<form className="form-inline" onSubmit={this.handleFormSubmit}>
 					<div className="form-group">
 						<input
-							className="form-control"
+							className="form-control  textarea"
 							type="text"
 							placeholder="Drop a comment"
 							name="comment"
