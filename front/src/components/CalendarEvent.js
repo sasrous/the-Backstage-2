@@ -38,7 +38,12 @@ class CalendarEvent extends Component {
 					<div type="text/x-template" id="blog-card">
 						<a className="card-link">
 							<article class="blog-card">
-								<MicrolinkCard url={`${this.state.uri}`} href={'/lobby/' + id} size="large" />
+								<MicrolinkCard
+									apiKey="0RCIGKSrMD2uIMODno7Wk6H4SLixVZqW6oWAl0f6"
+									url={`${this.state.uri}`}
+									href={'/lobby/' + id}
+									size="large"
+								/>
 
 								<div className="article-details">
 									<h4 className="post-category">{this.state.date}</h4>

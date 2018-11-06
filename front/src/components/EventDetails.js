@@ -22,7 +22,12 @@ class EventDetails extends Component {
 			const { displayName, uri, location, start, venue } = this.state.data;
 			return (
 				<div>
-					<MicrolinkCard url={`${uri}`} size="large" className="extralarge" />
+					<MicrolinkCard
+						apiKey="0RCIGKSrMD2uIMODno7Wk6H4SLixVZqW6oWAl0f6"
+						url={`${uri}`}
+						size="large"
+						className="extralarge"
+					/>
 					<h1>{displayName}</h1>
 					<h2>{start.date}</h2>
 					<h5>Venue : {venue.displayName}</h5>
